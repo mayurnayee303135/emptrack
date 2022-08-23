@@ -14,7 +14,7 @@ $isDashboardActive = Request::is($urlAdmin);
 </li>
 @endcan
 
-@can('generator_builder.index')
+{{-- @can('generator_builder.index')
 @php
 $isUserActive = Request::is($urlAdmin.'*generator_builder*');
 @endphp
@@ -38,7 +38,7 @@ $isUserActive = Request::is($urlAdmin.'*attendances*');
         <p>@lang('menu.attendances.title')</p>
     </a>
 </li>
-@endcan
+@endcan --}}
 
 @canany(['users.index','roles.index','permissions.index'])
 @php
@@ -75,7 +75,7 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
             </a>
         </li>
         @endcan
-        @can('permissions.index')
+        {{-- @can('permissions.index')
         <li class="nav-item ">
             <a href="{{ route('permissions.index') }}" class="nav-link {{ $isPermissionActive ? 'active' : '' }}">
                 <i class="nav-icon fas fa-shield-alt"></i>
@@ -84,15 +84,15 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
                 </p>
             </a>
         </li>
-        @endcan
+        @endcan --}}
     </ul>
 </li>
 @endcan
-@can('fileUploads.index')
+{{-- @can('fileUploads.index')
 <li class="nav-item">
     <a href="{{ route('fileUploads.index') }}" class="nav-link {{ Request::is('fileUploads*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-file-alt"></i>
         <p>@lang('models/fileUploads.plural')</p>
     </a>
 </li>
-@endcan
+@endcan --}}

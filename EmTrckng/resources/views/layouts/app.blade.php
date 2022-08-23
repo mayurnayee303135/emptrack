@@ -102,14 +102,6 @@
             </section>
         </div>
 
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 0.0.2
-            </div>
-            <strong>Copyright &copy; 2022 <a href="https://hau.xyz">hau.xyz</a>.</strong> All rights
-            reserved.
-        </footer>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>

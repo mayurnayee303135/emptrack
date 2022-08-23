@@ -60,15 +60,11 @@ hold-transition login-page
             <p class="mb-1">
                 <a href="{{ route('password.request') }}">@lang('auth.login.button.reset-password')</a>
             </p>
-            <p class="mb-1">
-                <a href="{{ route('register') }}" class="text-center">@lang('auth.login.button.register')</a>
-            </p>
 
 
         </div>
         <!-- /.login-card-body -->
     </div>
-    @include('layouts.lang')
 </div>
 <!-- /.login-box -->
 @endsection
