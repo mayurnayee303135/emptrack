@@ -16,6 +16,14 @@
         {!! Form::select('role_data[]', $roles,null, ['class' => 'select2 form-control select2-purple','multiple'=>'multiple']) !!}
     </div>
 </div>
+<div class="form-group col-sm-12 col-lg-12">
+    {!! Form::label('status', 'status:',['class'=>'switch']) !!} 
+    {{-- {!! Form::checkbox('status', null, ['checked']) !!} --}}
+   <label class="switch">
+       <input type="checkbox" checked>
+       <span class="slider round"></span>
+   </label>
+</div>
 @if(!isset($user))
 <!-- Password Field -->
 <div class="form-group col-sm-6">

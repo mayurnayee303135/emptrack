@@ -40,14 +40,15 @@ $isUserActive = Request::is($urlAdmin.'*attendances*');
 </li>
 @endcan --}}
 
-@canany(['users.index','roles.index','permissions.index'])
+@canany(['users.index','roles.index','permissions.index','categories.index'])
 @php
 $isUserActive = Request::is($urlAdmin.'*users*');
 $isRoleActive = Request::is($urlAdmin.'*roles*');
 $isPermissionActive = Request::is($urlAdmin.'*permissions*');
+$isCategoryActive = Request::is($urlAdmin.'*categories*');
 @endphp
 <li class="nav-item {{($isUserActive||$isRoleActive||$isPermissionActive)?'menu-open':''}} ">
-    <a href="#" class="nav-link">
+    {{-- <a href="#" class="nav-link">
         <i class="nav-icon fas fa-shield-virus"></i>
         <p>
             @lang('menu.user.title')
@@ -75,7 +76,7 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
             </a>
         </li>
         @endcan
-        {{-- @can('permissions.index')
+        @can('permissions.index')
         <li class="nav-item ">
             <a href="{{ route('permissions.index') }}" class="nav-link {{ $isPermissionActive ? 'active' : '' }}">
                 <i class="nav-icon fas fa-shield-alt"></i>
@@ -84,8 +85,46 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
                 </p>
             </a>
         </li>
-        @endcan --}}
-    </ul>
+        @endcan
+    </ul> --}}
+</li>
+@endcan
+<li class="nav-item">
+    <a href="{{ route('users.index') }}" class="nav-link {{ $isUserActive ? 'active' : '' }}">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+            @lang('menu.user.users')
+        </p>
+    </a>
+</li>
+@can('categories.index')
+<li class="nav-item">
+    <a href="{{ route('categories.index') }}" class="nav-link {{ $isCategoryActive ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user-shield"></i>
+        <p>
+            @lang('menu.categories.title')
+        </p>
+    </a>
+</li>
+@endcan
+@can('permissions.index')
+<li class="nav-item ">
+    <a href="{{ route('permissions.index') }}" class="nav-link {{ $isPermissionActive ? 'active' : '' }}">
+        <i class="nav-icon fas fa-shield-alt"></i>
+        <p>
+            @lang('menu.user.permissions')
+        </p>
+    </a>
+</li>
+@endcan
+@can('roles.index')
+<li class="nav-item">
+    <a href="{{ route('roles.index') }}" class="nav-link {{ $isRoleActive ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user-shield"></i>
+        <p>
+            @lang('menu.user.roles')
+        </p>
+    </a>
 </li>
 @endcan
 {{-- @can('fileUploads.index')

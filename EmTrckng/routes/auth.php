@@ -19,6 +19,8 @@ Route::resource('users', App\Http\Controllers\UserController::class);
 
 Route::resource('attendances', App\Http\Controllers\AttendanceController::class);
 
+Route::resource('categories', App\Http\Controllers\CategoryController::class);
+
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('generator_builder.index');
 
 Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate')->name('generator_builder.field_template');

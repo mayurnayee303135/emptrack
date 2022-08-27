@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\UserDataTable;
+use Response;
 use App\Http\Requests;
+use Laracasts\Flash\Flash;
+use App\DataTables\UserDataTable;
+use App\Repositories\RoleRepository;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\UpdateProfileRequest;
-use App\Repositories\UserRepository;
-use App\Repositories\RoleRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\Hash;
-use Response;
+use App\Http\Requests\UpdateProfileRequest;
 
 class UserController extends AppBaseController
 {

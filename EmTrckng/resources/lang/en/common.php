@@ -19,7 +19,8 @@ return [
         'roles' => 'Role',
         'permissions' => 'Permission',
         'attendances'=>'Checkin/out',
-        'generator_builder'=>'Generator Builder'
+        'generator_builder'=>'Generator Builder',
+        'categories' => 'Category'
     ],
     'permission' => [
         'home' => 'Access Home Page',

@@ -57,10 +57,6 @@ hold-transition login-page
                 </div>
             </form>
 
-            <p class="mb-1">
-                <a href="{{ route('password.request') }}">@lang('auth.login.button.reset-password')</a>
-            </p>
-
 
         </div>
         <!-- /.login-card-body -->
