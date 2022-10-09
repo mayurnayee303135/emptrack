@@ -13,6 +13,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\UpdateProfileRequest;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends AppBaseController
 {
@@ -64,6 +65,15 @@ class UserController extends AppBaseController
 
         $role_data = $request->get('role_data');
         $user->syncRoles($role_data);
+
+        $details = [
+            'Username' => $request->email,
+            'Password' => $request->password,
+            'URL' => 'techconversionlabs.com'
+        ];
+       
+        Mail::to($request->email)->send(new \App\Mail\LoginMail($details));
+
         Flash::success('User saved successfully.');
 
         return redirect(route('users.index'));

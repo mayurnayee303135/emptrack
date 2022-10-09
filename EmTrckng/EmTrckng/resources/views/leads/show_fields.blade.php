@@ -89,7 +89,7 @@
                             </label>
                             <div class="col-sm-7">
                                 <div class="form-group">
-                                    <textarea name="comment" id="input-comment" required></textarea>
+                                    <textarea name="comment" cols="152" id="input-comment" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="ml-auto mr-auto mb-2">
-                        <input type="submit" class="btn btn-danger" value="Reply">
+                        <input type="submit" class="btn btn-danger" value="Send Comment">
                     </div>
                 </div>
             </form>

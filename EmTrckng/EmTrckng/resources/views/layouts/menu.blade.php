@@ -50,7 +50,7 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
             </a>
         </li>
         @endcan
-        @can('permissions.index')
+        {{-- @can('permissions.index')
         <li class="nav-item ">
             <a href="{{ route('permissions.index') }}" class="nav-link {{ $isPermissionActive ? 'active' : '' }}">
                 <i class="nav-icon fas fa-shield-alt"></i>
@@ -59,7 +59,7 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
                 </p>
             </a>
         </li>
-        @endcan
+        @endcan --}}
     </ul>
 </li>
 @endcan

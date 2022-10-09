@@ -5,16 +5,14 @@ hold-transition login-page
 
 @section('content')
 <div class="login-box">
-    <div class="login-logo">
-        <a href="{{ route('home') }}"><b>{{ config('app.name') }}</b></a>
-    </div>
 
     <!-- /.login-logo -->
 
     <!-- /.login-box-body -->
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">@lang('auth.login.title')</p>
+            <img src="{{url('images/metalogo.jpg')}}" alt="Logo" class="mx-auto d-block">
+            <br>
 
             <form method="post" action="{{ url('/login') }}">
                 @csrf
@@ -58,7 +56,7 @@ hold-transition login-page
             </form>
 
 
-        </div>
+        {{-- </div> --}}
         <!-- /.login-card-body -->
     </div>
 </div>

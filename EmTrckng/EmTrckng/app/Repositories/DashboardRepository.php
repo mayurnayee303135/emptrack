@@ -21,17 +21,23 @@ class DashboardRepository
     private $permissionRepository;
     /** @var  AttendanceRepository */
     private $attendanceRepository;
+     /** @var  CompanyVisitRepository */
+     private $companyVisitRepository;
+     /** @var  LeadRepository */
+     private $leadRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(RoleRepository $roleRepo, UserRepository $userRepo, PermissionRepository $permissionRepo, AttendanceRepository $attendanceRepo)
+    public function __construct(RoleRepository $roleRepo, UserRepository $userRepo, PermissionRepository $permissionRepo, AttendanceRepository $attendanceRepo, CompanyVisitRepository $companyVisitRepo, LeadRepository $leadRepo)
     {
         $this->permissionRepository = $permissionRepo;
         $this->userRepository = $userRepo;
         $this->roleRepository = $roleRepo;
         $this->attendanceRepository = $attendanceRepo;
+        $this->companyVisitRepository = $companyVisitRepo;
+        $this->leadRepository = $leadRepo;
     }
 
     private function getDashboardInfo()
@@ -41,6 +47,8 @@ class DashboardRepository
         $dashboardInfo['role_count'] =  $this->roleRepository->count();
         $dashboardInfo['permission_count'] =  $this->permissionRepository->count();
         $dashboardInfo['user_online'] =  $this->attendanceRepository->CountUserOnline();
+        $dashboardInfo['company_visit_count'] =  $this->companyVisitRepository->count();
+        $dashboardInfo['lead_count'] =  $this->leadRepository->count();
         return $dashboardInfo;
     }
     private function getChartUserCheckinInfo()
