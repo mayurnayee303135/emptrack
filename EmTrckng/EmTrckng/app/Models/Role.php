@@ -57,11 +57,11 @@ class Role extends Model
         'name' => 'required|max:255|unique:roles,name'
     ];
 
-    protected $appends = array('permission_data', 'check_supper_admin');
-    public function getPermissionDataAttribute()
-    {
-        return $this->permissions->pluck('id', 'id');
-    }
+    // protected $appends = array('permission_data', 'check_supper_admin');
+    // public function getPermissionDataAttribute()
+    // {
+    //     return $this->permissions->pluck('id', 'id');
+    // }
 
     public function getCheckSupperAdminAttribute()
     {
