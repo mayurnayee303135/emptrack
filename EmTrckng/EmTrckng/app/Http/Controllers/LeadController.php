@@ -62,7 +62,7 @@ class LeadController extends Controller
             $lead->date_of_visit = $leads->date_of_visit;
             $lead->next_follow_update = $leads->next_follow_update;
             $lead->attachment = $leads->attachment;
-            $lead->created_by = $leads->created_by;
+            $lead->created_by = auth()->user()->id;
             $lead->save();
 
         }

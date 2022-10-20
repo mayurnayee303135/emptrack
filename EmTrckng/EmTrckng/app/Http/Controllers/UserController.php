@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Response;
 use App\Http\Requests;
+use App\Models\User;
 use Laracasts\Flash\Flash;
 use App\DataTables\UserDataTable;
 use App\Repositories\RoleRepository;
@@ -61,7 +62,8 @@ class UserController extends AppBaseController
         $input = $request->all();
         $input['password'] = Hash::make($request->password);
         
-        $user = $this->userRepository->create($input);
+        $user = User::create($input);
+        // $user = $this->userRepository->create($input);
 
         $role_data = $request->get('role_data');
         $user->syncRoles($role_data);

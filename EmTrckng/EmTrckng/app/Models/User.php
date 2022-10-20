@@ -41,7 +41,9 @@ class User extends Authenticatable
         'dob',
         'status',
         'gender',
-        'address'
+        'address',
+        'latitude',
+        'longitude',
     ];
 
     /**

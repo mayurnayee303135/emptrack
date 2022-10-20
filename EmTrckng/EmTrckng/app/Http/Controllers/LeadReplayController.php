@@ -42,7 +42,7 @@ class LeadReplayController extends Controller
             $filename = $image->getClientOriginalName();
             $destinationPath = 'public/leadAttachments';
         
-            $image->storeAs("$destinationPath", $filename);
+            $image->move(public_path().'/leadAttachments/',$filename);
 
         }
         else
@@ -57,7 +57,7 @@ class LeadReplayController extends Controller
             LeadReplay::create([
                 'lead_id' => $request->lead_id,
                 'comment' => $request->comment,
-                'attachment' => 'leadAttachments/'.$filename,
+                'attachment' => $filename,
                 'created_by' => auth()->user()->id
             ]);
         }

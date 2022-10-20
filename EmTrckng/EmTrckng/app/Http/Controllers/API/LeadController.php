@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Lead;
 use App\Models\LeadReplay;
+use App\Models\IndustryType;
 use Illuminate\Http\Request;
 
 class LeadController extends Controller
@@ -14,29 +15,30 @@ class LeadController extends Controller
         
         if(!empty($userId))
         {
-            $leadLists = Lead::join('industry_types','industry_types.id','=','company_visits.industry')->where('leads.created_by','=',$userId)->select('leads.*','industry_types.name as industry_type')->get()->toArray();
+            $leadLists = Lead::where('created_by','=',$userId)->select('leads.*')->get()->toArray();
 
             $data = [];
             if (!empty($leadLists)) {
                 foreach ($leadLists as $key => $value) {
                     $data[$key]['name'] = $value['name'] ?? '';
                     $data[$key]['city'] = $value['city'] ?? '';
-                    $data[$key]['state'] = $leadLists['state'] ?? '';
-                    $data[$key]['address'] = $leadLists['address'] ?? '';
-                    $data[$key]['operated_by'] = $leadLists['operated_by'] ?? '';
-                    $data[$key]['industry_type'] = $leadLists['industry_type'] ?? '';
-                    $data[$key]['contact_person'] = $leadLists['contact_person'] ?? '';
-                    $data[$key]['designation'] = $leadLists['designation'] ?? '';
-                    $data[$key]['department'] = $leadLists['department'] ?? '';
-                    $data[$key]['decision_maker'] = $leadLists['decision_maker'] ?? '';
-                    $data[$key]['contact_no'] = $leadLists['contact_no'] ?? 0;
-                    $data[$key]['email'] = $leadLists['email'] ?? '';
-                    $data[$key]['date_of_visit'] = date('Y-m-d', strtotime($leadLists['date_of_visit'])) ?? '';
-                    $data[$key]['next_follow_update'] = date('Y-m-d', strtotime($leadLists['next_follow_update'])) ?? '';
+                    $data[$key]['state'] = $value['state'] ?? '';
+                    $data[$key]['address'] = $value['address'] ?? '';
+                    $data[$key]['operated_by'] = $value['operated_by'] ?? '';
+                    $data[$key]['industry_type'] = $this->getIndustryType($value['industry']);
+                    $data[$key]['contact_person'] = $value['contact_person'] ?? '';
+                    $data[$key]['designation'] = $value['designation'] ?? '';
+                    $data[$key]['department'] = $value['department'] ?? '';
+                    $data[$key]['decision_maker'] = $value['decision_maker'] ?? '';
+                    $data[$key]['contact_no'] = $value['contact_no'] ?? 0;
+                    $data[$key]['email'] = $value['email'] ?? '';
+                    $data[$key]['date_of_visit'] = date('Y-m-d', strtotime($value['date_of_visit'])) ?? '';
+                    $data[$key]['next_follow_update'] = date('Y-m-d', strtotime($value['next_follow_update'])) ?? '';
+                    $data[$key]['attachment']= $this->getAttachments($value['id']);
                 }
             }
 
-            return response()->json(['data' => $data , 'message'=>'No data found'], 200); 
+            return response()->json(['data' => $data , 'message'=>'Lead lists successfull.'], 200); 
         }
         else
         {
@@ -49,14 +51,14 @@ class LeadController extends Controller
         
         if(!empty($leadId))
         {
-            $leadLists = Lead::join('industry_types','industry_types.id','=','company_visits.industry')->where('leads.id','=',$leadId)->select('leads.*','industry_types.name as industry_type')->first();
+            $leadLists = Lead::where('id','=',$leadId)->select('leads.*')->first();
 
             $data['name'] = $leadLists->name ?? '';
             $data['city'] = $leadLists->city ?? '';
             $data['state'] = $leadLists->state ?? '';
             $data['address'] = $leadLists->address ?? '';
             $data['operated_by'] = $leadLists->operated_by ?? '';
-            $data['industry_type'] = $leadLists->industry_type ?? '';
+            $data['industry_type']= $this->getIndustryType($leadLists->industry);
             $data['contact_person'] = $leadLists->contact_person ?? '';
             $data['designation'] = $leadLists->designation ?? '';
             $data['department'] = $leadLists->department ?? '';
@@ -65,8 +67,9 @@ class LeadController extends Controller
             $data['email'] = $leadLists->email ?? '';
             $data['date_of_visit'] = date('Y-m-d', strtotime($leadLists->date_of_visit)) ?? '';
             $data['next_follow_update'] = date('Y-m-d', strtotime($leadLists->next_follow_update)) ?? '';
+            $data['attachment'] = $this->getAttachments($leadLists->id);
 
-            return response()->json(['data' => $data , 'message'=>'No data found'], 200); 
+            return response()->json(['data' => $data , 'message'=>'Lead details successfull.'], 200); 
         }
         else
         {
@@ -83,7 +86,7 @@ class LeadController extends Controller
         {
             $image = $attachment;
             $filename = $image->getClientOriginalName();
-            $destinationPath = 'public/leadAttachments';
+            $destinationPath = 'public/storage/leadAttachments';
         
             $image->storeAs("$destinationPath", $filename);
 
@@ -111,5 +114,27 @@ class LeadController extends Controller
         }
 
         return response()->json(['data' => $leadReplay->id , 'message' => 'Lead Comment Added Successfully.'], 200); 
+    }
+
+    public function getIndustryType($industryId)
+    {
+        $industryTypeData = IndustryType::where('id','=',$industryId)->select('name')->first();
+
+        return $industryTypeData->name ?? '';
+    }
+
+    public function getAttachments($leadId)
+    {
+        
+        $attachments = LeadReplay::where('lead_id','=',$leadId)->get();
+
+        $list=[];
+        foreach($attachments as $key=> $value)
+        {
+            $list[$key]['comment']= $value->comment;
+            $list[$key]['url']= url('leadAttachments/'.$value->attachment);
+        }
+
+        return $list;
     }
 }

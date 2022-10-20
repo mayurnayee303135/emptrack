@@ -19,19 +19,5 @@ class Authenticate extends Middleware
             return route('login');
         }
     }
-    public function handle($request, Closure $next, ...$guards)
-    {
-        /** @var \App\User $user */
-        $user = $request->user();
-        // Like: users.index
-        $route = app()->router->getCurrentRoute()->getName();
 
-        $guest_perrmission = config('fast.guest_perrmission');
-        // Hasn't permission
-        if (!in_array($route, $guest_perrmission) && !empty($user) && !$user->isSuperAdmin() && !empty($route) && !$user->hasPermissionTo($route)) {
-            return abort(403);
-        }
-
-        return parent::handle($request, $next, $guards);
-    }
 }

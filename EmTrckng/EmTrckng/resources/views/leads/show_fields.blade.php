@@ -132,7 +132,7 @@
                                 <tr>
                                     <td>{{ $attchment->comment ?? 'NA' }}</td>
                                     @if (!empty($attchment->attachment))
-                                        <td><a href="{{ url('storage'.'/'.$attchment->attachment) }}">{{ url('storage'.'/'.$attchment->attachment) }}</a></td>
+                                        <td><a href="{{ url('leadAttachments/'.$attchment->attachment) }}">{{ url('leadAttachments/'.$attchment->attachment) }}</a></td>
                                     @else
                                     <td >NA </td>                       
                                     @endif

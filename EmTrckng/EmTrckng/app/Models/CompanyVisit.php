@@ -29,6 +29,8 @@ class CompanyVisit extends Model
         'date_of_visit',
         'next_follow_update',
         'attachment',
+        'latitude',
+        'longitude',
         'created_by'
     ];
 
