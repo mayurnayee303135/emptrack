@@ -1,4 +1,3 @@
-@if(!$check_supper_admin)
 {!! Form::open(['route' => ['roles.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
     <a href="{{ route('roles.show', $id) }}" class='btn btn-default btn-xs'>
@@ -14,4 +13,3 @@
     ]) !!}
 </div>
 {!! Form::close() !!}
-@endif
