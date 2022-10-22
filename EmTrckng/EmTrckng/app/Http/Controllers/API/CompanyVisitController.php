@@ -16,7 +16,7 @@ class CompanyVisitController extends Controller
         
         if(!empty($userId))
         {
-            $companyVisitLists = CompanyVisit::where('created_by','=',$userId)->select('id','name','operated_by','industry')->get()->toArray();
+            $companyVisitLists = CompanyVisit::where('created_by','=',$userId)->select('id','name','operated_by','industry','created_at')->get()->toArray();
             
             $data = [];
             if(!empty($companyVisitLists))
@@ -24,6 +24,11 @@ class CompanyVisitController extends Controller
                 foreach ($companyVisitLists as $key => $value) {
                     $data[$key]['visit_id'] = $value['id'] ?? 0;
                     $data[$key]['name'] = $value['name'] ?? '';
+                    if(!empty($leadLists['created_at'])) {
+                        $data[$key]['date'] = date('Y-m-d', strtotime($leadLists['created_at']));
+                    } else {
+                        $data[$key]['date'] = '';
+                    }
                     $data[$key]['operated_by'] = $leadLists['operated_by'] ?? '';
                     $data[$key]['industry_type']= $this->getIndustryType($value['industry']);
                 }
@@ -104,13 +109,23 @@ class CompanyVisitController extends Controller
         $data =[];
         if(!empty($visitId))
         {
-            $companyVisitLists = CompanyVisit::where('id','=',$visitId)->select('id','name','operated_by','industry')->first();
+            $companyVisitLists = CompanyVisit::where('id','=',$visitId)->select('company_visits.*')->first();
 
-            $data['visit_id'] = $companyVisitLists->id ?? 0;
             $data['name'] = $companyVisitLists->name ?? '';
+            $data['city'] = $companyVisitLists->city ?? '';
+            $data['state'] = $companyVisitLists->state ?? '';
+            $data['address'] = $companyVisitLists->address ?? '';
             $data['operated_by'] = $companyVisitLists->operated_by ?? '';
             $data['industry_type']= $this->getIndustryType($companyVisitLists->industry);
-            $data['attachment']= $this->getAttachments($companyVisitLists->id);
+            $data['contact_person'] = $companyVisitLists->contact_person ?? '';
+            $data['designation'] = $companyVisitLists->designation ?? '';
+            $data['department'] = $companyVisitLists->department ?? '';
+            $data['decision_maker'] = $companyVisitLists->decision_maker ?? '';
+            $data['contact_no'] = $companyVisitLists->contact_no ?? 0;
+            $data['email'] = $companyVisitLists->email ?? '';
+            $data['date_of_visit'] = date('Y-m-d', strtotime($companyVisitLists->date_of_visit)) ?? '';
+            $data['next_follow_update'] = date('Y-m-d', strtotime($companyVisitLists->next_follow_update)) ?? '';
+            $data['attachment'] = $this->getAttachments($companyVisitLists->id);
 
             return response()->json(['data' => $data , 'message'=>'Company visit details successfull.'], 200); 
         }
