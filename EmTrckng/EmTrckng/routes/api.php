@@ -28,5 +28,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('leadDetails', [LeadController::class,'leadDetails'])->name('leadDetails');
     Route::post('leadCommentAdd', [LeadController::class,'leadCommentAdd'])->name('leadCommentAdd');
     Route::post('locationUpdate', [UserController::class,'locationUpdate'])->name('locationUpdate');
+    Route::post('checkInOut', [UserController::class,'checkInOut'])->name('checkInOut');
 });
 
