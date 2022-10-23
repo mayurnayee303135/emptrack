@@ -42,5 +42,7 @@ return [
     'industry_type'=>[
         'title'=>'Industry Type'
     ],
-
+    'user_attendance'=>[
+        'title'=>'User Attendance'
+    ],
 ];
