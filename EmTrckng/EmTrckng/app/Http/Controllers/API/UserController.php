@@ -58,14 +58,16 @@ class UserController extends Controller
         $latitude = $request->latitude;
         $longitude = $request->longitude;
         $address = $request->address;
+        
+        $setDate = date('Y-m-d', strttotime($date));
 
-        $checkData = CheckInOut::where('user_id','=',$userId)->where('date','=',$date)->select('id')->first();
+        $checkData = CheckInOut::where('user_id','=',$userId)->where('date','=',$setDate)->select('id')->first();
 
         if(!empty($checkData->id))
         {
             $checkInOut = CheckInOut::findOrFail($checkData->id);
             $checkInOut->user_id = $userId;
-            $checkInOut->date = $date;
+            $checkInOut->date = $setDate;
             $checkInOut->flag = 1;
             $checkInOut->check_in = $checkIn;
             $checkInOut->latitude = $latitude;
@@ -79,9 +81,9 @@ class UserController extends Controller
         {
             $checkInOut = new CheckInOut();
             $checkInOut->user_id = $userId;
-            $checkInOut->date = $date;
+            $checkInOut->date = $setDate;
             $checkInOut->flag = 0;
-            $checkInOut->check_in = $checkIn;
+            $checkInOut->check_out = $checkOut;
             $checkInOut->latitude = $latitude;
             $checkInOut->longitude = $longitude;
             $checkInOut->address = $address;
