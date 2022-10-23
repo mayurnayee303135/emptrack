@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\CheckInOut;
+use App\Models\UserAttendance;
+use App\Models\IndustryType;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,48 +50,79 @@ class UserController extends Controller
         }
     }
     
-    public function checkInOut(Request $request)
+    public function userAttendance(Request $request)
     {
+        $id = $request->attendanceId;
         $userId = $request->user_id;
-        $date = $request->date;
-        $status = $request->status;
-        $checkIn = $request->check_in;
-        $checkOut = $request->check_out;
         $latitude = $request->latitude;
         $longitude = $request->longitude;
-        $address = $request->address;
-        
-        $setDate = date('Y-m-d', strttotime($date));
-
-        $checkData = CheckInOut::where('user_id','=',$userId)->where('date','=',$setDate)->select('id')->first();
-
-        if(!empty($checkData->id))
-        {
-            $checkInOut = CheckInOut::findOrFail($checkData->id);
-            $checkInOut->user_id = $userId;
-            $checkInOut->date = $setDate;
-            $checkInOut->flag = 1;
-            $checkInOut->check_in = $checkIn;
-            $checkInOut->latitude = $latitude;
-            $checkInOut->longitude = $longitude;
-            $checkInOut->address = $address;
-            $checkInOut->update();
-
-            return response()->json(['data' => $checkInOut->id , 'message' => 'User Check Out Successfull.'], 200);
+        $user_location = $request->user_location;
+        $check_in_date = $request->check_in_date;
+        $check_in_time = $request->check_in_time;
+        $check_out_date = $request->check_out_date;
+        $check_out_time = $request->check_out_time;
+    
+        if(!empty($id)) {
+            $userAttendance = UserAttendance::find($id);         
+            if(!is_null($userAttendance)){
+                $userAttendance = UserAttendance::findOrFail($id);
+                $userAttendance->user_id = $userId;
+                $userAttendance->latitude = $latitude;
+                $userAttendance->longitude = $longitude;
+                $userAttendance->user_location = $user_location;
+                $userAttendance->check_out_date = $check_out_date;
+                $userAttendance->check_out_time = $check_out_time;
+                $userAttendance->update();
+                
+                return response()->json(['data' => $userAttendance->id , 'message' => 'User attendance check-out Successfull.'], 200);
+            } else {
+                return response()->json(['data' => [] ,'message' => 'User attendance check-in time not added'], 200);
+            }
+                
+            
+        }
+        else if(empty($id) || !empty($userId)) {
+            $userAttendance = new UserAttendance();
+            $userAttendance->user_id = $userId;
+            $userAttendance->latitude = $latitude;
+            $userAttendance->longitude = $longitude;
+            $userAttendance->user_location = $user_location;
+            $userAttendance->check_in_date = $check_in_date;
+            $userAttendance->check_in_time = $check_in_time;
+            $userAttendance->save();
+            
+            return response()->json(['data' => $userAttendance->id , 'message' => 'User attendance check-in Successfull.'], 200);
         }
         else
         {
-            $checkInOut = new CheckInOut();
-            $checkInOut->user_id = $userId;
-            $checkInOut->date = $setDate;
-            $checkInOut->flag = 0;
-            $checkInOut->check_out = $checkOut;
-            $checkInOut->latitude = $latitude;
-            $checkInOut->longitude = $longitude;
-            $checkInOut->address = $address;
-            $checkInOut->save();
-
-            return response()->json(['data' => $checkInOut->id , 'message' => 'User Check In Successfull.'], 200);
+            return response()->json(['data' => [] , 'message'=>'User id does not exists.'], 200); 
         }
     }
+    
+    public function userAttendanceList(Request $request){
+    
+        $userId = $request->user_id;
+            
+        if(!empty($userId))
+        {
+            $userAttendanceList = UserAttendance::where('user_id','=',$userId)->select('*')->get()->toArray();
+            
+            return response()->json(['data' => $userAttendanceList , 'message'=>'Attendance List successfull.'], 200); 
+        }
+        else
+        {
+            return response()->json(['data' => [] , 'message'=>'No data found'], 200); 
+        }
+    }
+    
+    public function getMasterList(Request $request){
+        
+            $industryType = IndustryType::select('*')->get()->toArray();
+            $category = Category::select('*')->get()->toArray();
+                
+            return response()->json(['data' => ['industryType'=> $industryType, 'category'=>$category], 'message'=>'Master list successfull.'], 200); 
+        
+    }
+   
+    
 }
