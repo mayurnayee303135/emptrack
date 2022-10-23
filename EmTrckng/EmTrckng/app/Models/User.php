@@ -100,6 +100,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attendance::class);
     }
+    
+    public function userAttendance()
+    {
+        return $this->hasMany(UserAttendance::class);
+    }
 
     public function checkIn()
     {
