@@ -16,13 +16,13 @@ class CreateCheckInOutsTable extends Migration
         Schema::create('check_in_outs', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->default(0);
-            $table->string('date');
-            $table->integer('flag')->default(0);
-            $table->string('check_in');
-            $table->string('check_out');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->text('address');
+            $table->string('date')->nullable();
+            $table->integer('flag')->default(0)->nullable();
+            $table->string('check_in')->nullable();
+            $table->string('check_out')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->text('address')->nullable();
             $table->timestamps();
         });
     }
