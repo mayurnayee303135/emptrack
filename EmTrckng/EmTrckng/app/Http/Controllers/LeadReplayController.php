@@ -37,11 +37,8 @@ class LeadReplayController extends Controller
     {
         if(!empty($request->file('attachment')))
         {
-        
             $image = $request->file('attachment');
             $filename = $image->getClientOriginalName();
-            $destinationPath = 'public/leadAttachments';
-        
             $image->move(public_path().'/leadAttachments/',$filename);
 
         }
