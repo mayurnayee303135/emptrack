@@ -107,4 +107,11 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
         </p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{ route('user_attendance.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+            @lang('menu.user_attendance.title')
+        </p>
+    </a>
+</li>
