@@ -82,10 +82,7 @@ class LeadController extends Controller
         {
             $image = $attachment;
             $filename = $image->getClientOriginalName();
-            $destinationPath = 'public/storage/leadAttachments';
-        
-            $image->storeAs("$destinationPath", $filename);
-
+            $url = $image->move(public_path().'/leadAttachments/',$fileName);
         }
         else
         {
@@ -97,7 +94,7 @@ class LeadController extends Controller
             $leadReplay = new LeadReplay();
             $leadReplay->lead_id = $leadId;
             $leadReplay->comment = $comment;
-            $leadReplay->attachment = 'leadAttachments/'.$filename;
+            $leadReplay->attachment = $filename;
             $leadReplay->created_by = $createdBy;
             $leadReplay->save();
         }
