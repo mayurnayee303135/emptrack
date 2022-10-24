@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\CompanyVisit;
+use App\Models\User;
 use App\Models\CompanyAttachment;
 use Illuminate\Http\Request;
 use App\Models\IndustryType;
@@ -16,7 +17,7 @@ class CompanyVisitController extends Controller
         
         if(!empty($userId))
         {
-            $companyVisitLists = CompanyVisit::where('created_by','=',$userId)->select('id','name','operated_by','industry','created_at')->get()->toArray();
+            $companyVisitLists = CompanyVisit::where('created_by','=',$userId)->select('id','name','operated_by','industry','date_of_visit')->get()->toArray();
             
             $data = [];
             if(!empty($companyVisitLists))
@@ -24,13 +25,10 @@ class CompanyVisitController extends Controller
                 foreach ($companyVisitLists as $key => $value) {
                     $data[$key]['visit_id'] = $value['id'] ?? 0;
                     $data[$key]['name'] = $value['name'] ?? '';
-                    if(!empty($leadLists['created_at'])) {
-                        $data[$key]['date'] = date('Y-m-d', strtotime($leadLists['created_at']));
-                    } else {
-                        $data[$key]['date'] = '';
-                    }
-                    $data[$key]['operated_by'] = $leadLists['operated_by'] ?? '';
+                    $data[$key]['operated_by'] = $value['operated_by'] ?? '';
                     $data[$key]['industry_type']= $this->getIndustryType($value['industry']);
+                    $data[$key]['date_of_visit']= $value['date_of_visit'] ?? '';
+                    $data[$key]['attachment']= $this->getAttachments($value['id']);
                 }
             }
 
@@ -61,6 +59,7 @@ class CompanyVisitController extends Controller
         $createdBy = $request->created_by;
         $latitude = $request->latitude;
         $longitude = $request->longitude;
+        $user_location = $request->user_location;
         $attachment = $request->file('attachment');
        
 
@@ -83,6 +82,7 @@ class CompanyVisitController extends Controller
         $companyVisit->next_follow_update = $nxtFlwUpDt;
         $companyVisit->latitude = $latitude;
         $companyVisit->longitude = $longitude;
+        $companyVisit->user_location = $user_location;
         $companyVisit->created_by = $createdBy;
         $companyVisit->save();
         
@@ -109,23 +109,31 @@ class CompanyVisitController extends Controller
         $data =[];
         if(!empty($visitId))
         {
-            $companyVisitLists = CompanyVisit::where('id','=',$visitId)->select('company_visits.*')->first();
+            $companyVisitLists = CompanyVisit::where('id','=',$visitId)->select('*')->first();
 
+            $data['visit_id'] = $companyVisitLists->id ?? 0;
+            $data['operated_by'] = $companyVisitLists->operated_by ?? '';
             $data['name'] = $companyVisitLists->name ?? '';
+            
             $data['city'] = $companyVisitLists->city ?? '';
             $data['state'] = $companyVisitLists->state ?? '';
             $data['address'] = $companyVisitLists->address ?? '';
-            $data['operated_by'] = $companyVisitLists->operated_by ?? '';
-            $data['industry_type']= $this->getIndustryType($companyVisitLists->industry);
             $data['contact_person'] = $companyVisitLists->contact_person ?? '';
             $data['designation'] = $companyVisitLists->designation ?? '';
             $data['department'] = $companyVisitLists->department ?? '';
             $data['decision_maker'] = $companyVisitLists->decision_maker ?? '';
-            $data['contact_no'] = $companyVisitLists->contact_no ?? 0;
+            $data['contact_no'] = $companyVisitLists->contact_no ?? '';
             $data['email'] = $companyVisitLists->email ?? '';
-            $data['date_of_visit'] = date('Y-m-d', strtotime($companyVisitLists->date_of_visit)) ?? '';
-            $data['next_follow_update'] = date('Y-m-d', strtotime($companyVisitLists->next_follow_update)) ?? '';
-            $data['attachment'] = $this->getAttachments($companyVisitLists->id);
+            $data['customer_code'] = $companyVisitLists->customer_code ?? '';
+            $data['date_of_visit'] = $companyVisitLists->date_of_visit ?? '';
+            $data['next_follow_update'] = $companyVisitLists->next_follow_update ?? '';
+            $data['created_by'] = $this->getUser($companyVisitLists->created_by);
+            $data['latitude'] = $companyVisitLists->latitude ?? '';
+            $data['longitude'] = $companyVisitLists->longitude ?? '';
+            $data['user_location'] = $companyVisitLists->user_location ?? '';
+            
+            $data['industry_type']= $this->getIndustryType($companyVisitLists->industry);
+            $data['attachment']= $this->getAttachments($companyVisitLists->id);
 
             return response()->json(['data' => $data , 'message'=>'Company visit details successfull.'], 200); 
         }
@@ -154,5 +162,12 @@ class CompanyVisitController extends Controller
         $industryTypeData = IndustryType::where('id','=',$industryId)->select('name')->first();
 
         return $industryTypeData->name ?? '';
+    }
+    
+    public function getUser($userId)
+    {
+        $userData = User::where('id','=',$userId)->select('name')->first();
+    
+        return $userData->name ?? '';
     }
 }
