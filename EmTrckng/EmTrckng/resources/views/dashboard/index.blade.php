@@ -91,6 +91,29 @@
 
             <!-- fix for small devices only -->
             <div class="clearfix hidden-md-up"></div>
+            
+                    <div class="mt-4 row">
+            <div class="col">
+                <div class="table-responsive-sm">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Current Location</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            @foreach($userLocations as $userLocation)
+                            <tr>
+                                <td>{{$userLocation->name}}</td>
+                                <td>{{$userLocation->address}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         
             <!-- /.col -->
