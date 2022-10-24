@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Attendance;
 use Carbon\Carbon;
+use DB;
 
 /**
  * Class DashboardRepository
@@ -94,6 +95,20 @@ class DashboardRepository
         $dashboard = [];
         $dashboard['dashboardInfo'] = $this->getDashboardInfo();
         $dashboard['chartUserCheckin'] = $this->getChartUserCheckinInfo();
+        $dashboard['userLocations'] = $this->getUserLocation();
         return $dashboard;
+    }
+    
+    public function getUserLocation()
+    {
+        $userDatas = DB::table('users')->select('name','address')->get()->toArray();
+
+        $userLists = [];
+        foreach ($userLists as $key => $value) {
+            $userLists[$key]['name'] = $value->name;
+            $userLists[$key]['address'] = $value->address; 
+        }
+
+        return $userLists;
     }
 }
