@@ -16,20 +16,27 @@ class LeadController extends Controller
         
         if(!empty($userId))
         {
-            $leadLists = Lead::where('created_by','=',$userId)->select('id','name','operated_by','industry','created_at')->get()->toArray();
+            $leadLists = Lead::where('created_by','=',$userId)->select('leads.*')->get()->toArray();
 
             $data = [];
             if (!empty($leadLists)) {
                 foreach ($leadLists as $key => $value) {
-                    $data[$key]['lead_id'] = $value['id'] ?? 0;
+                    $data[$key]['leadid'] = $value['id'] ?? '';
                     $data[$key]['name'] = $value['name'] ?? '';
-                    if(!empty($leadLists['created_at'])) {
-                        $data[$key]['date'] = date('Y-m-d', strtotime($leadLists['created_at']));
-                    } else {
-                        $data[$key]['date'] = '';
-                    }
-                    $data[$key]['operated_by'] = $leadLists['operated_by'] ?? '';
-                    $data[$key]['industry_type']= $this->getIndustryType($value['industry']);
+                    $data[$key]['city'] = $value['city'] ?? '';
+                    $data[$key]['state'] = $value['state'] ?? '';
+                    $data[$key]['address'] = $value['address'] ?? '';
+                    $data[$key]['operated_by'] = $value['operated_by'] ?? '';
+                    $data[$key]['industry_type'] = $this->getIndustryType($value['industry']);
+                    $data[$key]['contact_person'] = $value['contact_person'] ?? '';
+                    $data[$key]['designation'] = $value['designation'] ?? '';
+                    $data[$key]['department'] = $value['department'] ?? '';
+                    $data[$key]['decision_maker'] = $value['decision_maker'] ?? '';
+                    $data[$key]['contact_no'] = $value['contact_no'] ?? 0;
+                    $data[$key]['email'] = $value['email'] ?? '';
+                    $data[$key]['date_of_visit'] = date('Y-m-d', strtotime($value['date_of_visit'])) ?? '';
+                    $data[$key]['next_follow_update'] = date('Y-m-d', strtotime($value['next_follow_update'])) ?? '';
+                    $data[$key]['attachment']= $this->getAttachments($value['id']);
                 }
             }
 
@@ -48,6 +55,7 @@ class LeadController extends Controller
         {
             $leadLists = Lead::where('id','=',$leadId)->select('leads.*')->first();
 
+            $data['lead_id'] = $leadLists->id ?? '';
             $data['name'] = $leadLists->name ?? '';
             $data['city'] = $leadLists->city ?? '';
             $data['state'] = $leadLists->state ?? '';
@@ -73,13 +81,13 @@ class LeadController extends Controller
     }
 
     public function leadCommentAdd(Request $request){ 
-        $leadId = $request->lead_id;
         $comment = $request->comment;
+        $lead_id = $request->lead_id;
         $attachment = $request->file('attachment');
         $createdBy = $request->created_by;
 
         if(!empty($attachment))
-        {
+        {            
             $image = $attachment;
             $filename = $image->getClientOriginalName();
             $url = $image->move(public_path().'/leadAttachments/',$fileName);
@@ -92,18 +100,18 @@ class LeadController extends Controller
         if(!empty($filename))
         {
             $leadReplay = new LeadReplay();
-            $leadReplay->lead_id = $leadId;
             $leadReplay->comment = $comment;
             $leadReplay->attachment = $filename;
             $leadReplay->created_by = $createdBy;
+            $leadReplay->lead_id = $lead_id;
             $leadReplay->save();
         }
         else
         {
             $leadReplay = new LeadReplay();
-            $leadReplay->lead_id = $leadId;
             $leadReplay->comment = $comment;
             $leadReplay->attachment = '';
+            $leadReplay->lead_id = $lead_id;
             $leadReplay->created_by = $createdBy;
             $leadReplay->save();
         }
@@ -117,6 +125,13 @@ class LeadController extends Controller
 
         return $industryTypeData->name ?? '';
     }
+    
+    public function getUser($userId)
+    {
+        $userData = User::where('id','=',$userId)->select('name')->first();
+    
+        return $userData->name ?? '';
+    }
 
     public function getAttachments($leadId)
     {
@@ -127,18 +142,11 @@ class LeadController extends Controller
         foreach($attachments as $key=> $value)
         {
             $list[$key]['comment']= $value->comment;
+            $list[$key]['created_at']= $value->created_at;
+            $list[$key]['created_by']= $this->getUser($value->created_by);
             $list[$key]['url']= url('leadAttachments/'.$value->attachment);
-            $list[$key]['username']= $this->getUserName($value->created_by);
-            $list[$key]['date']= $value->created_at;
         }
 
         return $list;
-    }
-
-    public function getUserName($userId)
-    {
-        $userData = User::where('id','=',$userId)->select('name')->first();
-
-        return $userData->name ?? '';
     }
 }
