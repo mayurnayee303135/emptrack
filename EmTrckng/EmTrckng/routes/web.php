@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyVisitController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\IndustryTypeController;
 use App\Http\Controllers\LeadReplayController;
+use App\Http\Controllers\UserAttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,3 +71,5 @@ Route::group(['prefix' => 'industryTypes/{id}'],function(){
 
 Route::post('leads/replay',[LeadReplayController::class,'store'])->name('leadreplay.store');
 
+
+Route::get('userAttendance',[UserAttendanceController::class,'index'])->name('user_attendance.index');
