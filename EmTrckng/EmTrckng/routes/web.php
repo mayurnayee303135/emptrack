@@ -71,5 +71,4 @@ Route::group(['prefix' => 'industryTypes/{id}'],function(){
 
 Route::post('leads/replay',[LeadReplayController::class,'store'])->name('leadreplay.store');
 
-
 Route::get('userAttendance',[UserAttendanceController::class,'index'])->name('user_attendance.index');
