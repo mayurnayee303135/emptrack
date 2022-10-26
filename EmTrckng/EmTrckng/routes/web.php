@@ -72,3 +72,25 @@ Route::group(['prefix' => 'industryTypes/{id}'],function(){
 Route::post('leads/replay',[LeadReplayController::class,'store'])->name('leadreplay.store');
 
 Route::get('userAttendance',[UserAttendanceController::class,'index'])->name('user_attendance.index');
+
+Route::get('userAttendance/table',[UserAttendanceController::class,'table'])->name('user_attendance.table');
+
+
+Route::get('userAttendance/create',[UserAttendanceController::class,'create'])->name('user_attendance.create');
+
+Route::post('userAttendance/store',[UserAttendanceController::class,'store'])->name('user_attendance.store');
+
+
+
+
+Route::group(['prefix' => 'userAttendance/{id}'],function(){
+    
+    Route::get('/',[UserAttendanceController::class,'show'])->name('user_attendance.show');
+
+    Route::get('userAttendance/edit',[UserAttendanceController::class,'edit'])->name('user_attendance.edit');
+
+    Route::patch('userAttendance/update',[UserAttendanceController::class,'update'])->name('user_attendance.update');
+    
+    Route::delete('userAttendance/destroy',[UserAttendanceController::class,'destroy'])->name('user_attendance.destroy');
+    
+});

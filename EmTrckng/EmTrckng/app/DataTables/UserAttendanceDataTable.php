@@ -66,7 +66,7 @@ class UserAttendanceDataTable extends DataTable
     {
         return [
             'id' => ['searchable' => false],
-            'user_name' => ['title' => __('models/userAttendance.fields.user_id'), 'data' => 'user_name', 'name' => 'user.name'],
+            'user_name' => ['title' => __('models/userAttendance.fields.user_id'), 'data' => 'user_id', 'name' => 'user.name'],
             'check_in_date' => ['title' => __('models/userAttendance.fields.check_in_date')],
             'check_in_time' => ['title' => __('models/userAttendance.fields.check_in_time')],
             'check_out_date' => ['title' => __('models/userAttendance.fields.check_out_date')],

@@ -25,7 +25,10 @@ class UserAttendance extends Model
 		'updated_at'
 	];
 
-	protected $appends = array('user_name');
+    public static $rules = [];
+
+
+	// protected $appends = array('user_id');
     public function getUserNameAttribute()
     {
         return $this->user->name;
@@ -35,7 +38,6 @@ class UserAttendance extends Model
      *
      * @var array
      */
-    public static $rules = [];
     public function user()
     {
         return $this->belongsTo(User::class);
