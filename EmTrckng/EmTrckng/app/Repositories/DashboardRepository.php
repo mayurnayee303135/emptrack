@@ -101,14 +101,14 @@ class DashboardRepository
     
     public function getUserLocation()
     {
-        $userDatas = DB::table('users')->select('name','address')->get()->toArray();
+        $userDatas = DB::table('users')->select('name','address')->paginate(5);
 
         $userLists = [];
-        foreach ($userLists as $key => $value) {
+        foreach ($userDatas as $key => $value) {
             $userLists[$key]['name'] = $value->name;
             $userLists[$key]['address'] = $value->address; 
         }
 
-        return $userLists;
+        return $userDatas;
     }
 }

@@ -14,14 +14,19 @@ class UserController extends Controller
 {
     public function login(Request $request){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-            $user = Auth::user(); 
-            $success['id'] =  $user->id;
-            $success['name'] =  $user->name;
-            $success['email'] =  $user->email;
-            $success['phone'] =  $user->phone;
-            $success['dob'] =  $user->dob;
-            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            return response()->json(['data' => $success , 'message' => 'Login Successfull.'], 200); 
+            $user = Auth::user();
+            
+            if($user->role_id == 1) {
+                return response()->json(['data' => [] , 'message'=>'Unable to login.'], 200); 
+            } else {
+                $success['id'] =  $user->id;
+                $success['name'] =  $user->name;
+                $success['email'] =  $user->email;
+                $success['phone'] =  $user->phone;
+                $success['dob'] =  $user->dob;
+                $success['token'] =  $user->createToken('MyApp')-> accessToken;
+                return response()->json(['data' => $success , 'message' => 'Login Successfull.'], 200);
+            }
         } 
         else{ 
             return response()->json(['message'=>'Unauthorised'], 401); 

@@ -29,10 +29,10 @@ class UserAttendance extends Model
 
 
 	// protected $appends = array('user_id');
-    public function getUserNameAttribute()
-    {
-        return $this->user->name;
-    }
+	// public function getUserNameAttribute()
+	// {
+	//     return $this->user->name;
+	// }
     /**
      * Validation rules
      *

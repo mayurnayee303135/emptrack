@@ -44,6 +44,7 @@ class User extends Authenticatable
         'address',
         'latitude',
         'longitude',
+        'role_id',
     ];
 
     /**
@@ -155,5 +156,10 @@ class User extends Authenticatable
             'time_out' => $now,
             'present' => $present
         ]);
+    }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 }

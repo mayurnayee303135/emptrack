@@ -45,9 +45,9 @@
 
 <!-- Role Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('role', 'Role:') !!}
-    <div class="select2-purple">
-        {!! Form::select('role_data[]', $roles,null, ['class' => 'select2 form-control select2-purple','multiple'=>'multiple']) !!}
+    {!! Form::label('role', 'Role:',['class' => 'required']) !!}
+    <div class="select-purple">
+        {!! Form::select('role_id', $roles,null, ['class' => 'select form-control select-purple']) !!}
     </div>
 </div>
 @if(!isset($user))

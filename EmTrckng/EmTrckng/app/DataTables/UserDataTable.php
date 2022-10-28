@@ -29,7 +29,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->with('Attendances');
+        return $model->newQuery()->with('role');
     }
 
     /**
@@ -69,8 +69,7 @@ class UserDataTable extends DataTable
             'id' => ['searchable' => false],
             'name',
             'email',
-            'status_online'=>['data'=>'status_online','orderable' => false, 'searchable' => false],
-            'role_text' => ['orderable' => false, 'searchable' => false],
+            'role_id' => ['title' => 'Role', 'data' => 'role.name', 'name' => 'role.name'],
         ];
     }
 

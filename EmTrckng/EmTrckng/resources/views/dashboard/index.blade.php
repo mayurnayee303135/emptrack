@@ -88,34 +88,34 @@
                 <!-- /.info-box -->
             </div>
             <!-- /.col -->
-
             <!-- fix for small devices only -->
             <div class="clearfix hidden-md-up"></div>
-            
-                    <div class="mt-4 row">
-            <div class="col">
-                <div class="table-responsive-sm">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>User Name</th>
-                                <th>Current Location</th>
-                            </tr>
-                        </thead>
-                        <tbody> 
-                            @foreach($userLocations as $userLocation)
-                            <tr>
-                                <td>{{$userLocation->name}}</td>
-                                <td>{{$userLocation->address}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="card col-sm-12">
+                <div class="mt-4 row">
+                    <div class="col">
+                        <h4 class="d-flex justify-content-sm-start">User Locations</h4>
+                        <div class="table-responsive-sm">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>User Name</th>
+                                        <th>Current Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    @foreach($userLocations as $userLocation)
+                                    <tr>
+                                        <td>{{$userLocation->name}}</td>
+                                        <td>{{$userLocation->address}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-sm-end mb-4">{{ ($userLocations->links()) }}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        
             <!-- /.col -->
            
             <!-- /.col -->
