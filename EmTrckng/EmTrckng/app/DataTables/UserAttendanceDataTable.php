@@ -42,7 +42,7 @@ class UserAttendanceDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('datatables.bAction')])
+            ->addAction(['width' => '120px', 'printable' => false, 'title' => ''])
             ->parameters([
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
@@ -65,7 +65,6 @@ class UserAttendanceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id' => ['searchable' => false],
             'user_id' => ['title' => __('models/userAttendance.fields.user_id'), 'data' => 'user.name', 'name' => 'user.name'],
             'check_in_date' => ['title' => __('models/userAttendance.fields.check_in_date')],
             'check_in_time' => ['title' => __('models/userAttendance.fields.check_in_time')],
