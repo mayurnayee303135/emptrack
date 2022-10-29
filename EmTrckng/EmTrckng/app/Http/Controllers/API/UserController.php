@@ -16,7 +16,7 @@ class UserController extends Controller
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user();
             
-            if($user->role_id == 1) {
+            if($user->role_id != 2) {
                 return response()->json(['data' => [] , 'message'=>'Unable to login.'], 200); 
             } else {
                 $success['id'] =  $user->id;
