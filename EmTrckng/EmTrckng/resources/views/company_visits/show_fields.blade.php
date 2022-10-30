@@ -71,11 +71,11 @@
 
                                 </tr>
                                 <tr>
-                                    <th> </th>
-                                    <td> </td>
-                                    
                                     <th> Decision Maker:- </th>
                                     <td>{{ $companyVisit->decision_maker }}</td>
+                                    
+                                    <th> Created By:- </th>
+                                    <td>{{ $companyVisit->created_by }}</td>
                                 </tr>
                             </tbody>
                         </table>
