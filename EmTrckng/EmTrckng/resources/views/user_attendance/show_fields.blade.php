@@ -16,34 +16,32 @@
                                 <tr>
                                     <th> User Name:- </th>
                                     <td>{{ $attendance->user_id }}</td>
-
-                                    <th> Location:- </th>
-                                    <td>{{ $attendance->user_location }}</td>
-
                                 </tr>
                                 <tr>
                                     <th> Check In Date:- </th>
                                     <td>{{ $attendance->check_in_date }}</td>
-
                                     <th> Check In Time:- </th>
                                     <td>{{ $attendance->check_in_time }}</td>
-
                                 </tr>
                                 <tr>
                                     <th> Check Out Date:- </th>
                                     <td>{{ $attendance->check_out_date }}</td>
-                                    
                                     <th> Check Out Time:- </th>
                                     <td>{{ $attendance->check_out_time }}</td>
-
                                 </tr>
-                                
                                 <tr>
                                     <th> Check In Location:- </th>
                                     <td>{{ $attendance->user_location }}</td>
 
                                     <th> Check Out Location:- </th>
                                     <td>{{ $attendance->check_out_location }}</td>
+                                </tr>
+                                <tr>
+                                    <th> Latitude:- </th>
+                                    <td>{{ $attendance->latitude }}</td>
+
+                                    <th> Longitude:- </th>
+                                    <td>{{ $attendance->longitude }}</td>
                                 </tr>
                                 <tr>
                                     <th> Created At:- </th>
