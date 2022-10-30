@@ -16,6 +16,8 @@
                                 <tr>
                                     <th> User Name:- </th>
                                     <td>{{ $attendance->user_id }}</td>
+                                    <th> </th>
+                                    <td> </td>
                                 </tr>
                                 <tr>
                                     <th> Check In Date:- </th>
