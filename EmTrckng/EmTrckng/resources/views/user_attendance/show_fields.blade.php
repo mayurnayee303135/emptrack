@@ -37,6 +37,14 @@
                                     <td>{{ $attendance->check_out_time }}</td>
 
                                 </tr>
+                                
+                                <tr>
+                                    <th> Check In Location:- </th>
+                                    <td>{{ $attendance->user_location }}</td>
+
+                                    <th> Check Out Location:- </th>
+                                    <td>{{ $attendance->check_out_location }}</td>
+                                </tr>
                                 <tr>
                                     <th> Created At:- </th>
                                     <td>{{ $attendance->created_at }}</td>
