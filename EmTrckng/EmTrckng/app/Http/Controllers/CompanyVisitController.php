@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Response;
 use App\Http\Request;
 use App\Models\CompanyVisit;
+use App\Models\CompanyAttachment;
 use App\Models\Lead;
 use Laracasts\Flash\Flash;
 use App\DataTables\CompanyVisitDataTable;
@@ -31,13 +32,15 @@ class CompanyVisitController extends AppBaseController
     {
         $companyVisit = $this->companyVisitRepository->find($id);
         
+        $attchments = CompanyAttachment::where('company_id','=',$id)->get();
+        
         if (empty($companyVisit)) {
             Flash::error(__('models/categories.message.not_found'));
 
             return redirect(route('company_visits.index'));
         }
 
-        return view('company_visits.show')->with('companyVisit', $companyVisit); 
+        return view('company_visits.show', compact('attchments'))->with('companyVisit', $companyVisit); 
     }
 
     /**
