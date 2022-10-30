@@ -132,9 +132,18 @@
                                 <tr>
                                     <td>{{ $attchment->comment ?? 'NA' }}</td>
                                     @if (!empty($attchment->attachment))
-                                        <td><a href="{{ url('leadAttachments/'.$attchment->attachment) }}">{{ url('leadAttachments/'.$attchment->attachment) }}</a></td>
+                                        @php  $explodeName = explode('.',$attchment->attachment);@endphp
+                                        @if($explodeName[1] == "jpg" || $explodeName[1] == "jpeg" || $explodeName[1] == "gif")
+                                            <td><img src="{{ url('leadAttachments/'.$attchment->attachment) }}" class="rounded-circle img-circle" ><a href="{{ url('leadAttachments/'.$attchment->attachment) }}">{{ url('leadAttachments/'.$attchment->attachment) }}</a></td>
+                                        @elseif($explodeName[1] == "pdf")
+                                            <td><i class=" btn-danger fas fa-file-pdf fa-4x"></i><a href="{{ url('leadAttachments/'.$attchment->attachment) }}">{{ url('leadAttachments/'.$attchment->attachment) }}</a></td>
+                                        @elseif($explodeName[1] == "xls" || $explodeName[1] == "xlsx" || $explodeName[1] == "xlsm" || $explodeName[1] == "xlsb" || $explodeName[1] == "xltx" ||  $explodeName[1] == "xml")
+                                            <td><i class=" btn-success fas fa-file-excel fa-4x"></i><a href="{{ url('leadAttachments/'.$attchment->attachment) }}">{{ url('leadAttachments/'.$attchment->attachment) }}</a></td>
+                                        @else
+                                        <td> NA </td>
+                                        @endif
                                     @else
-                                    <td >NA </td>                       
+                                        <td> NA </td>                       
                                     @endif
                                 </tr>
                                 @endforeach
