@@ -11,6 +11,7 @@ use App\DataTables\LeadDataTable;
 use App\Repositories\LeadRepository;
 use App\Http\Controllers\AppBaseController;
 use App\Models\CompanyVisit;
+use DB;
 
 class LeadController extends Controller
 {
