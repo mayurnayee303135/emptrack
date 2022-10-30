@@ -82,7 +82,7 @@ class LeadController extends Controller
 
     public function leadCommentAdd(Request $request){ 
         $comment = $request->comment;
-        $lead_id = $request->lead_id;
+        $leadId = $request->lead_id;
         $attachment = $request->file('attachment');
         $createdBy = $request->created_by;
 
@@ -103,7 +103,7 @@ class LeadController extends Controller
             $leadReplay->comment = $comment;
             $leadReplay->attachment = $filename;
             $leadReplay->created_by = $createdBy;
-            $leadReplay->lead_id = $lead_id;
+            $leadReplay->lead_id = $leadId;
             $leadReplay->save();
         }
         else
@@ -111,7 +111,7 @@ class LeadController extends Controller
             $leadReplay = new LeadReplay();
             $leadReplay->comment = $comment;
             $leadReplay->attachment = '';
-            $leadReplay->lead_id = $lead_id;
+            $leadReplay->lead_id = $leadId;
             $leadReplay->created_by = $createdBy;
             $leadReplay->save();
         }
