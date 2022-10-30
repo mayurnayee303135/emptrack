@@ -21,6 +21,7 @@ class UserAttendance extends Model
 		'user_location',
 		'latitude',
 		'longitude',
+        'check_out_location',
 		'created_at',
 		'updated_at'
 	];
