@@ -71,8 +71,7 @@ class CompanyVisitDataTable extends DataTable
             'contact_person',
             'department',
             'contact_no',
-            'email',
-            'created_by'
+            'email'
         ];
     }
 
