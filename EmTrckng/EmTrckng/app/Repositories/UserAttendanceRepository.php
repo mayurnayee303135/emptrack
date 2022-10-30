@@ -24,7 +24,8 @@ class UserAttendanceRepository extends BaseRepository
         'check_out_date',
         'user_location',
         'check_in_time',
-        'check_out_time'
+        'check_out_time',
+        'check_out_location'
     ];
 
     /**
