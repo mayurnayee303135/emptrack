@@ -24,7 +24,8 @@ return [
         'check_in_time' => 'Check In Time',
         'check_out_date' => 'Check Out Date',
         'check_out_time' => 'Check Out Time',
-        'user_location' => 'User Location'
+        'user_location' => 'Check In Location',
+        'check_out_location' => 'Check Out Location'
     ],
     'button' => [
         'add_new' => 'Add New',
