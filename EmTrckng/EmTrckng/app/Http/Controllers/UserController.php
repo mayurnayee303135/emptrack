@@ -71,7 +71,7 @@ class UserController extends AppBaseController
         $details = [
             'Username' => $request->email,
             'Password' => $request->password,
-            'URL' => 'techconversionlabs.com'
+            'URL' => 'http://techconversionlabs.com/emptracking-web/public/login'
         ];
        
         Mail::to($request->email)->send(new \App\Mail\LoginMail($details));
