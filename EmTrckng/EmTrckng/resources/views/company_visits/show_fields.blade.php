@@ -85,3 +85,46 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Company Visit Attachments</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <table class="table">
+                            <thead >
+                                <th>Images</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($attchments as $attchment)
+                                <tr>
+                                    @if (!empty($attchment->image))
+                                        @php  $explodeName = explode('.',$attchment->image);@endphp
+                                        @if($explodeName[1] == "jpg" || $explodeName[1] == "jpeg" || $explodeName[1] == "gif")
+                                            <td><img src="{{ url('leadAttachments/'.$attchment->image) }}" class="rounded-circle img-circle" ><a href="{{ url('leadAttachments/'.$attchment->image) }}">{{ url('leadAttachments/'.$attchment->image) }}</a></td>
+                                        @elseif($explodeName[1] == "pdf")
+                                            <td><i class=" btn-danger fas fa-file-pdf fa-4x"></i><a href="{{ url('leadAttachments/'.$attchment->image) }}">{{ url('leadAttachments/'.$attchment->image) }}</a></td>
+                                        @elseif($explodeName[1] == "xls" || $explodeName[1] == "xlsx" || $explodeName[1] == "xlsm" || $explodeName[1] == "xlsb" || $explodeName[1] == "xltx" ||  $explodeName[1] == "xml")
+                                            <td><i class=" btn-success fas fa-file-excel fa-4x"></i><a href="{{ url('leadAttachments/'.$attchment->image) }}">{{ url('leadAttachments/'.$attchment->image) }}</a></td>
+                                        @else
+                                        <td> NA </td>
+                                        @endif
+                                    @else
+                                        <td> NA </td>                       
+                                    @endif
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
