@@ -3,6 +3,7 @@
     <a href="{{ route('users.show', $id) }}" class='btn btn-warning btn-sm ml-2'>
         <i class="fa fa-eye"></i>
     </a>
+    @if($id != 1)
     <a href="{{ route('users.edit', $id) }}" class='btn btn-primary btn-sm ml-2'>
         <i class="fa fa-edit"></i>
     </a>
@@ -11,5 +12,6 @@
         'class' => 'btn btn-danger btn-sm ml-2',
         'onclick' => "return confirm('Are you sure?')"
     ]) !!}
+    @endif
 </div>
 {!! Form::close() !!}
