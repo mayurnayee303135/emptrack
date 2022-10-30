@@ -101,7 +101,7 @@ class DashboardRepository
     
     public function getUserLocation()
     {
-        $userDatas = DB::table('users')->select('name','address')->paginate(5);
+        $userDatas = DB::table('users')->where('role_id','=',2)->select('name','address')->paginate(5);
 
         $userLists = [];
         foreach ($userDatas as $key => $value) {
