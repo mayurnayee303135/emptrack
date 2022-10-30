@@ -73,9 +73,10 @@
                                 <tr>
                                     <th> Decision Maker:- </th>
                                     <td>{{ $companyVisit->decision_maker }}</td>
-                                    
+                                    @php $userData = DB::table('users')->where('id','=',$companyVisit->created_by)->select('name')->first();
+                                    $createdBy = $userData->name ?? 'NA'; @endphp
                                     <th> Created By:- </th>
-                                    <td>{{ $companyVisit->created_by }}</td>
+                                    <td>{{ $createdBy }}</td>
                                 </tr>
                             </tbody>
                         </table>
