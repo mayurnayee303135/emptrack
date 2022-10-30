@@ -70,7 +70,8 @@ class UserAttendanceDataTable extends DataTable
             'check_in_time' => ['title' => __('models/userAttendance.fields.check_in_time')],
             'check_out_date' => ['title' => __('models/userAttendance.fields.check_out_date')],
             'check_out_time' => ['title' => __('models/userAttendance.fields.check_out_time')],
-            'user_location' => ['title' => __('models/userAttendance.fields.user_location')]
+            'user_location' => ['title' => __('models/userAttendance.fields.user_location')],
+            'check_out_location' => ['title' => __('models/userAttendance.fields.check_out_location')]
         ];
     }
 
