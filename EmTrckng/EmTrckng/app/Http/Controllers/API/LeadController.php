@@ -90,7 +90,7 @@ class LeadController extends Controller
         {            
             $image = $attachment;
             $filename = $image->getClientOriginalName();
-            $url = $image->move(public_path().'/leadAttachments/',$fileName);
+            $url = $image->move(public_path().'/leadAttachments/',$filename);
         }
         else
         {
