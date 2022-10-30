@@ -66,7 +66,6 @@ class UserController extends Controller
         $check_in_time = $request->check_in_time;
         $check_out_date = $request->check_out_date;
         $check_out_time = $request->check_out_time;
-        $check_out_location = $request->check_out_location;
     
         if(!empty($id)) {
             $userAttendance = UserAttendance::find($id);         
@@ -77,7 +76,7 @@ class UserController extends Controller
                 $userAttendance->longitude = $longitude;
                 $userAttendance->check_out_date = $check_out_date;
                 $userAttendance->check_out_time = $check_out_time;
-                $userAttendance->check_out_location = $check_out_location;
+                $userAttendance->check_out_location = $user_location;
                 $userAttendance->update();
                 
                 return response()->json(['data' => $userAttendance->id , 'message' => 'User attendance check-out Successfull.'], 200);
