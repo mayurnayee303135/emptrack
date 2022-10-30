@@ -54,12 +54,19 @@
 
                                 </tr>
                                 <tr>
+                                    <th> Date Of Visit:- </th>
+                                    <td>{{ $leads->date_of_visit ?? 'NA' }}</td>
+
+                                    <th> Next Follow Up Date:- </th>
+                                    <td>{{ $leads->next_follow_update ?? 'NA' }}</td>
+
+                                </tr>
+                                <tr>
+                                    <th> Decision Maker:- </th>
+                                    <td>{{ $leads->decision_maker }}</td>
+                                    
                                     <th> Created By:- </th>
                                     <td>{{ $leads->created_by }}</td>
-
-                                    <th> </th>
-                                    <td> </td>
-
                                 </tr>
                             </tbody>
                         </table>
