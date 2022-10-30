@@ -108,11 +108,11 @@
                                     @if (!empty($attchment->image))
                                         @php  $explodeName = explode('.',$attchment->image);@endphp
                                         @if($explodeName[1] == "jpg" || $explodeName[1] == "jpeg" || $explodeName[1] == "gif")
-                                            <td><img src="{{ url('companyAttachments/'.$attchment->image) }}" class="rounded-circle img-circle" width="100" height="100"><a href="{{ url('companyAttachments/'.$attchment->image) }}">{{ url('companyAttachments/'.$attchment->image) }}</a></td>
+                                            <td><a href="{{ url('companyAttachments/'.$attchment->image) }}"><img src="{{ url('companyAttachments/'.$attchment->image) }}" width="100" height="100"></a></td>
                                         @elseif($explodeName[1] == "pdf")
-                                            <td><i class=" btn-danger fas fa-file-pdf fa-4x"></i><a href="{{ url('companyAttachments/'.$attchment->image) }}">{{ url('companyAttachments/'.$attchment->image) }}</a></td>
+                                            <td><a href="{{ url('companyAttachments/'.$attchment->image) }}"><i class=" btn-danger fas fa-file-pdf fa-4x"></i></a></td>
                                         @elseif($explodeName[1] == "xls" || $explodeName[1] == "xlsx" || $explodeName[1] == "xlsm" || $explodeName[1] == "xlsb" || $explodeName[1] == "xltx" ||  $explodeName[1] == "xml")
-                                            <td><i class=" btn-success fas fa-file-excel fa-4x"></i><a href="{{ url('companyAttachments/'.$attchment->image) }}">{{ url('companyAttachments/'.$attchment->image) }}</a></td>
+                                            <td><a href="{{ url('companyAttachments/'.$attchment->image) }}"><i class=" btn-success fas fa-file-excel fa-4x"></i></a></td>
                                         @else
                                         <td> NA </td>
                                         @endif
