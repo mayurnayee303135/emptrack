@@ -39,8 +39,10 @@ class CompanyVisitController extends AppBaseController
 
             return redirect(route('company_visits.index'));
         }
+        
+        return view('company_visits.show',compact('companyVisit', 'attchments'));
 
-        return view('company_visits.show', compact('attchments'))->with('companyVisit', $companyVisit); 
+        //return view('company_visits.show', compact('attchments'))->with('companyVisit', $companyVisit); 
     }
 
     /**
