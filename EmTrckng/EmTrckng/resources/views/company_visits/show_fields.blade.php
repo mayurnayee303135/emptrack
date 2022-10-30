@@ -54,12 +54,28 @@
 
                                 </tr>
                                 <tr>
-                                    <th> Created By:- </th>
-                                    <td>{{ $companyVisit->created_by }}</td>
+                                    <th> Date Of Visit:- </th>
+                                    <td>{{ $companyVisit->date_of_visit ?? 'NA' }}</td>
 
+                                    <th> Next Follow Up Date:- </th>
+                                    <td>{{ $companyVisit->next_follow_update ?? 'NA' }}</td>
+
+                                </tr>
+                                
+                                <tr>
+                                    <th> Latitude:- </th>
+                                    <td>{{ $companyVisit->latitude ?? 'NA' }}</td>
+
+                                    <th> Longitude:- </th>
+                                    <td>{{ $companyVisit->longitude ?? 'NA' }}</td>
+
+                                </tr>
+                                <tr>
                                     <th> </th>
                                     <td> </td>
-
+                                    
+                                    <th> Decision Maker:- </th>
+                                    <td>{{ $companyVisit->decision_maker }}</td>
                                 </tr>
                             </tbody>
                         </table>
